@@ -3,7 +3,7 @@ const petController = require("../controllers/petController");
 
 const router = Router();
 
-router.post("/", petController.create);
-router.get('/:id', petController.findOne);
+router.post("/create", petController.create);
+router.get('/getOne/:id', petController.findOne);
 
 module.exports = router;

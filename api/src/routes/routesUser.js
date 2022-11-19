@@ -3,7 +3,7 @@ const userController = require("../controllers/userController");
 
 const router = Router();
 
-router.post("/", userController.create);
-router.get('/:id', userController.findOne);
+router.post("/create", userController.create);
+router.get('/getOne/:id', userController.findOne);
 
 module.exports = router;

@@ -1,26 +1,30 @@
 const Pet = require('../models/pet');
 
 const petController = {
-  create: (req, res) => {
-    const { name, race, genre, age, weight } = req.body;
+  create: async (req, res) => {
+    const pet = new User({
+      name: req.body.name, 
+      race: req.body.race, 
+      genre: req.body.genre, 
+      age: req.body.age, 
+      weight: req.body.weight
+    });
     try {
-      const pet = new Pet({name, race, genre, age, weight});
-      pet.save();
-      res.status(201).send("Mascota creada correctamente");      
+      const createdPet = await pet.save();
+      res.status(200).json(createdPet);      
     } catch (error) {
-      res.status(400).send(`No se pudo crear la mascota ${name}`);
+      res.status(400).json({message: error.message});
     }
   },
-  findOne: ((req, res) => {
+  findOne: async (req, res) => {
     const { id } = req.params;
     try {
-      User.findOne({_id: id}, function(error, pet) {  
-        res.send(pet);  
-      });      
+      const petFind = await Pet.findById(id);  
+      res.json(petFind);      
     } catch (error) {
-      res.status(500).send("Error interno del servidor");
+      res.status(500).json({message: error.message});
     }
-  }),
+  },
 };
 
 module.exports = petController;

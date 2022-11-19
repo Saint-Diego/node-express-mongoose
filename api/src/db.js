@@ -1,6 +1,16 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const { dbHost, dbName, dbPort } = require('./utils/config/index');
+const { dbHost, dbName, dbPassword, dbUser } = require('./utils/config/index');
 
-//Connect to the MongoDB test database  
-mongoose.connect(`mongodb://${dbHost}:${dbPort}/${dbName}`);
+const DB_URL = `mongodb+srv://${dbUser}:${dbPassword}@${dbHost}/${dbName}`;
+
+mongoose.connect(DB_URL);
+const database = mongoose.connection;
+
+database.on('error', (error) => {
+  console.log(error);
+});
+
+database.once('connected', () => {
+  console.log('Database Connected');
+});

@@ -1,26 +1,30 @@
 const User = require('../models/user');
 
 const userController = {
-  create: (req, res) => {
-    const { name, lastName, email, address, phone } = req.body;
+  create: async (req, res) => {
+    const user = new User({
+      name: req.body.name, 
+      lastName: req.body.lastName, 
+      email: req.body.email, 
+      address: req.body.address, 
+      phone: req.body.phone
+    });
     try {
-      const user = new User({name, lastName, email, address, phone});
-      user.save();
-      res.status(201).send("Usuario creado correctamente");      
+      const createdUser = await user.save();
+      res.status(200).json(createdUser);      
     } catch (error) {
-      res.status(400).send(`No se pudo crear el usuario ${name} ${lastName}`);
+      res.status(400).json({message: error.message});
     }
   },
-  findOne: ((req, res) => {
+  findOne: async (req, res) => {
     const { id } = req.params;
     try {
-      User.findOne({_id: id}, function(error, user) {  
-        res.send(user);  
-      });      
+      const userFind = await User.findById(id);  
+      res.json(userFind);      
     } catch (error) {
-      res.status(500).send("Error interno del servidor");
+      res.status(500).json({message: error.message});
     }
-  }),
+  },
 };
  
 module.exports = userController;

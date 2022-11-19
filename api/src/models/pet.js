@@ -2,10 +2,22 @@ const { Schema, model} = require('mongoose');
   
 const petSchema = new Schema(
   {  
-    name: String,
-    race: String,
-    genre: String,
-    age: Number,
+    name: {
+      required: true,
+      type: String,
+    },
+    race: {
+      required: true,
+      type: String,
+    },
+    genre: {
+      required: true,
+      type: String,
+    },
+    age: {
+      required: true,
+      type: Number,
+    },
     weight: Number,
   }
 );  
