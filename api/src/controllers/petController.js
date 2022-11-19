@@ -2,7 +2,7 @@ const Pet = require('../models/pet');
 
 const petController = {
   create: async (req, res) => {
-    const pet = new User({
+    const pet = new Pet({
       name: req.body.name, 
       race: req.body.race, 
       genre: req.body.genre, 
