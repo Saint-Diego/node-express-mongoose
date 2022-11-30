@@ -7,7 +7,8 @@ const userController = {
       lastName: req.body.lastName, 
       email: req.body.email, 
       address: req.body.address, 
-      phone: req.body.phone
+      phone: req.body.phone,
+      pets: req.body.pets
     });
     try {
       const createdUser = await user.save();
